@@ -1,4 +1,4 @@
-[string[]]$unnecessaryServices = @(
+[string[]]$unnecessaryServices =
     'AJRouter', # AllJoyn Router Service
     'ALG', # Application Layer Gateway Service
     'bthserv', # Bluetooth Support Device
@@ -46,7 +46,6 @@
     'XblAuthManager', # Xbox Live Auth Manager
     'XblGameSave', # Xbox Live Game Save
     'XboxNetApiSvc' # Xbox Live Networking Service
-)
 
 foreach ($service in $unnecessaryServices)
 {
