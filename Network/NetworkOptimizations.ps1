@@ -6,8 +6,13 @@ Set-NetTCPSetting -SettingName InternetCustom -ScalingHeuristics Disabled
 
 # Changes the TCP congestion provider to CTCP, increasing network speed especially on higher speed network connections.
 # This also may decrease latency (ping).
-Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\26 -Name 00000000 -Value [byte[]](0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x05, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0)
-Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\26 -Name 04000000 -Value [byte[]](0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x05, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0)
+if (-not (Test-Path -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\26"))
+{
+    New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\26"
+}
+
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\26" -Name 00000000 -Value ([byte[]](0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x05, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0))
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\26" -Name 04000000 -Value ([byte[]](0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x05, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0))
 
 # The receive-side scaling setting enables parallelized processing of received packets on multiple processors,
 # while avoiding packet reordering.
@@ -20,6 +25,11 @@ Enable-NetAdapterRsc -Name *
 # Limits the time and number of hops/routers a packet will travel before being discarded. A number that's too small
 # risks packets being discarded before reaching their destination. A number that's too large (over 128) will cause
 # delay in when lost IP packets are discarded.
+if (-not (Test-Path -Path HKLM:\SYSTEM\CurrentControlSet\Service\Tcpip\Parameters))
+{
+    New-Item -Path HKLM:\SYSTEM\CurrentControlSet\Service\Tcpip\Parameters -Force
+}
+
 Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Service\Tcpip\Parameters -Name DefaultTTL -Value 64
 
 # A mechanism that provides routers with an alternate method of communicating network congestion.
@@ -41,6 +51,11 @@ Set-NetTCPSetting -SettingName InternetCustom -Timestamps Disabled
 
 # This is intended to increase the priority of DNS/hostname resolution, by increasing the priority of
 # four related processes from their defaults.
+if (-not (Test-Path -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider))
+{
+    New-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider -Force
+}
+
 Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider -Name LocalPriority -Value 4
 Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider -Name HostPriority -Value 5
 Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider -Name DnsPriority -Value 6
@@ -66,6 +81,11 @@ Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Service\Tcpip\Parameters -
 Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Service\Tcpip\Parameters -Name TcpTimedWaitDelay -Value 30
 
 # Prevents QoS applications from getting priority to 20% of available bandwidth.
+if (-not (Test-Path -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched))
+{
+    New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched
+}
+
 Set-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched -Name NonBestEffortLimit -Value 0
 
 # Nagle's algorithm is designed to allow several small packets to be combined together into a single,
@@ -74,7 +94,7 @@ $networkInterfaces = [System.Collections.Generic.List[System.Net.NetworkInformat
 
 foreach ($networkInterface in [System.Net.NetworkInformation.NetworkInterface]::GetAllNetworkInterfaces())
 {
-    if ($networkInterface.OperationalStatus == OperationalStatus.Up)
+    if ($networkInterface.OperationalStatus -eq [System.Net.NetworkInformation.OperationalStatus]::Up)
     {
         $networkInterfaces.Add($networkInterface)
     }
@@ -83,7 +103,7 @@ foreach ($networkInterface in [System.Net.NetworkInformation.NetworkInterface]::
 $result = $null
 foreach ($networkInterface in $networkInterfaces)
 {
-    if ($result == $null)
+    if ($null -eq $result)
     {
         $result = $networkInterface
     }
@@ -101,3 +121,5 @@ foreach ($networkInterface in $networkInterfaces)
         }
     }
 }
+
+Write-Output "[NetworkOptimizations] Operation completed successfully."
