@@ -1,4 +1,7 @@
-[string]$physicalMemory = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum / 1GB
+Write-Host "Optimization scripts created by waylaa (https://github.com/waylaa/WindowsOptimizations)" -ForegroundColor Green
+Write-Host "If you paid for any of these scripts, you have been scammed." -ForegroundColor Green
+
+[string]$physicalMemory = [math]::Round((Get-CimInstance Win32_ComputerSystem | Select-Object TotalPhysicalMemory).TotalPhysicalMemory / 1GB, 2)
 
 switch($physicalMemory)
 {

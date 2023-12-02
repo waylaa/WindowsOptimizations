@@ -1,3 +1,6 @@
+Write-Host "Optimization scripts created by waylaa (https://github.com/waylaa/WindowsOptimizations)" -ForegroundColor Green
+Write-Host "If you paid for any of these scripts, you have been scammed." -ForegroundColor Green
+
 # Limits throughput, especially in high-speed, high-latency environments, such as most internet connections.
 Set-NetTCPSetting -SettingName InternetCustom -AutoTuningLevelLocal Normal
 
@@ -37,7 +40,7 @@ Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Service\Tcpip\Parameters -
 Set-NetTCPSetting -SettingName InternetCustom -EcnCapability Disabled
 
 # Disables checksum offloading.
-Disable-NetAdapterChecksumOffload -Name *
+Disable-NetAdapterChecksumOffload -Name * -ErrorAction SilentlyContinue
 
 # Enables Windows to offload all TCP processing for a connection to a network adapter (with proper driver support).
 Set-NetOffloadGlobalSetting -Chimney Disabled

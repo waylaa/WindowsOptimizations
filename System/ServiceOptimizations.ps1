@@ -1,9 +1,11 @@
+Write-Host "Optimization scripts created by waylaa (https://github.com/waylaa/WindowsOptimizations)" -ForegroundColor Green
+Write-Host "If you paid for any of these scripts, you have been scammed." -ForegroundColor Green
+
 [string[]]$unnecessaryServices =
     'AJRouter', # AllJoyn Router Service
     'ALG', # Application Layer Gateway Service
     'bthserv', # Bluetooth Support Device
     'PeerDistSvc', # BranchCache (Exists in Windows Pro only)
-    'CaptureService_?????', # OneCore Capture Service
     'CertPropSvc', # Certificate Propagation - Pro Only
     'dmwappushsvc',
     'MapsBroker', # Downloaded Maps Manager
@@ -49,8 +51,16 @@
 
 foreach ($service in $unnecessaryServices)
 {
-    Set-Service -Name "$service" -StartupType Disabled -Status Stopped
-    Write-Information "Disabled $service successfully."
+    $serviceExists = Get-Service -Name $service -ErrorAction SilentlyContinue
+
+    if ($serviceExists)
+    {
+        if (-not ($serviceExists.DependentServices))
+        {
+            Set-Service -Name "$service" -StartupType Disabled -Status Stopped -ErrorAction SilentlyContinue
+            Write-Output "Disabled $service successfully."
+        }
+    }
 }
 
-Write-Information "Operation finished successfully."
+Write-Output "Operation finished successfully."

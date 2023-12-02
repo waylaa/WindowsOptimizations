@@ -1,3 +1,6 @@
+Write-Host "Optimization scripts created by waylaa (https://github.com/waylaa/WindowsOptimizations)" -ForegroundColor Green
+Write-Host "If you paid for any of these scripts, you have been scammed." -ForegroundColor Green
+
 Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name MouseSpeed -Value "0"
 Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name MouseThreshold1 -Value "0"
 Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name MouseThreshold2 -Value "0"
@@ -5,6 +8,10 @@ Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name MouseThreshold2 -Value 
 # todo: there might be problem with the math here. Not 100% sure though.
 $lastLoadedDpi = Get-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\ThemeManager -Name LastLoadedDPI 
 [double]$scale = 96.00 / [double]::Parse($lastLoadedDpi.LastLoadedDPI)
+
+Write-Output $lastLoadedDpi
+Write-Output $scale
+Write-Output $scale.ToString("0.00%")
 
 switch($scale.ToString("0.00%"))
 {

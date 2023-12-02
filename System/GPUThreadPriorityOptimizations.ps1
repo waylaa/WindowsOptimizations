@@ -1,6 +1,7 @@
-[string]$brand = (Get-CimInstance -Class Win32_VideoController).Name.ToString()
+Write-Host "Optimization scripts created by waylaa (https://github.com/waylaa/WindowsOptimizations)" -ForegroundColor Green
+Write-Host "If you paid for any of these scripts, you have been scammed." -ForegroundColor Green
 
-Write-Output $brand
+[string]$brand = (Get-CimInstance -Class Win32_VideoController).Name.ToString()
 
 switch -Regex ($brand)
 {
@@ -16,7 +17,7 @@ switch -Regex ($brand)
             New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\Parameters -Name ThreadPriority -Value 0000001F
         }
 
-        Write-Information "[GPUThreadPriorityOptimizations] Optimizations applied successfully."
+        Write-Output "[GPUThreadPriorityOptimizations] Optimizations applied successfully."
         break
     }
     ".*amd.*"
@@ -31,12 +32,12 @@ switch -Regex ($brand)
             New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\amdkmdap\Parameters -Name ThreadPriority -Value 0000001F
         }
 
-        Write-Information "[GPUThreadPriorityOptimizations] Optimizations applied successfully."
+        Write-Output "[GPUThreadPriorityOptimizations] Optimizations applied successfully."
         break
     }
     Default
     {
-        Write-Error "Failed to increase GPU priority. No NVIDIA or AMD graphics card found."
+        Write-Output "Failed to increase GPU priority. No NVIDIA or AMD graphics card found."
         break
     }
 }

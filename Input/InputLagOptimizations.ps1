@@ -1,3 +1,6 @@
+Write-Host "Optimization scripts created by waylaa (https://github.com/waylaa/WindowsOptimizations)" -ForegroundColor Green
+Write-Host "If you paid for any of these scripts, you have been scammed." -ForegroundColor Green
+
 Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl -Name Win32PrioritySeparation -Value 00000028
 Set-ItemProperty -Path HKCU:\System\GameConfigStore -Name GameDVR_Enabled -Value 00000000
 Set-ItemProperty -Path HKCU:\System\GameConfigStore -Name GameDVR_FSEBehaviorMode -Value 00000002
