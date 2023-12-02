@@ -10,7 +10,8 @@ This project contains a few PowerShell scripts aimed at tweaking Windows (specif
 
 ## Usage
 1. Download the repository from [here](https://github.com/waylaa/WindowsOptimizations/archive/refs/heads/main.zip)
-2. Navigate through each folder and open **as administrator** whichever script you want.
+2. Extract the download folder.
+3. Navigate through each folder and open **as administrator** whichever script you want.
 
 ## Disclaimer
 I am not responsible for any damage that these scripts may cause to your operating system. It is your responsibility to read the code of every script you are going to run and have an understanding of what is happening under the hood. In other words, do your own research before running them.
