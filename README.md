@@ -10,5 +10,9 @@ This project contains a few PowerShell scripts aimed at tweaking Windows (specif
 
 - System → Improves GPU scheduling, reduces processes without downgrading the OS, changes to a better system profile and disables unnecessary services **(Check the 'ServivceOptimizations' script and comment out any service that you need)**.
 
-# Acknowledgement
+## Disclaimer
 I am not responsible for any damage that these scripts may cause to your operating system. It is your responsibility to read the code of every script you are going to run and have an understanding of what is happening under the hood. In other words, do your own research before running them.
+
+## License
+
+[The Unlicense](https://choosealicense.com/licenses/unlicense/)
