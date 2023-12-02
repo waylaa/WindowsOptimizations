@@ -9,7 +9,7 @@ This project contains a few PowerShell scripts aimed at tweaking Windows (specif
 - System → Improves GPU scheduling, reduces processes without downgrading the OS, changes to a better system profile and disables unnecessary services **(Check the 'ServivceOptimizations' script and comment out any service that you need)**.
 
 ## Usage
-1. Download the repository from [here](https://github.com/waylaa/WindowsOptimizations/archive/refs/heads/main.zip)
+1. Download the repository from [here](https://github.com/waylaa/WindowsOptimizations/archive/refs/heads/main.zip).
 2. Extract the download folder.
 3. Navigate through each folder and open **as administrator** whichever script you want.
 
