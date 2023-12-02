@@ -1,9 +1,7 @@
 # Windows Optimizations
-This project contains a few PowerShell scripts aimed at tweaking Windows (specifically Windows 7 to Windows 11) in some of its important areas, such as input, networking, and the system itself. Some of the code for these scripts was gathered from forums, websites, and other people I have met throughout the years who were into tweaking Windows.
+This project contains a few PowerShell scripts aimed at tweaking Windows (specifically Windows 10 and 11) Some of the code for these scripts was gathered from forums, websites, and other people I have met throughout the years who were into tweaking Windows.
 
 [Here is the code I used in my NetworkOptimizations file.](https://www.speedguide.net/articles/windows-10-tcpip-tweaks-5077/p-1/)
-
-Nowadays, there are better alternatives than running a bunch of scripts. The best alternative currently is just using custom Windows such as ReviOS or AtlasOS (*I do not promote using these projects*).
 
 ## Project structure:
 - Input → Aimed at removing pointer acceleration, setting a 1:1 pointer precision, reducing unneeded processes and disabling GameDVR (Disabling Xbox related applications such as the Xbox game bar).
@@ -13,4 +11,4 @@ Nowadays, there are better alternatives than running a bunch of scripts. The bes
 - System → Improves GPU scheduling, reduces processes without downgrading the OS, changes to a better system profile and disables unnecessary services **(Check the 'ServivceOptimizations' script and comment out any service that you need)**.
 
 # Acknowledgement
-I am not responsible for any damage that these scripts may cause to your computer. It is your responsibility to read the code of every script you are going to run and have an understanding of what is happening under the hood. In other words, **do your own research before running them**.
+I am not responsible for any damage that these scripts may cause to your operating system. It is your responsibility to read the code of every script you are going to run and have an understanding of what is happening under the hood. In other words, do your own research before running them.
